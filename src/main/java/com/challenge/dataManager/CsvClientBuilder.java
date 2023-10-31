@@ -9,22 +9,38 @@ import java.util.List;
 public class CsvClientBuilder {
 
     public static Client build(String[] array){
-        Name name = buildName(array);
-        Location location = buildLocation(array);
-        Picture picture = new Picture(array[19], array[20], array[21]);
-        List<String> telephones = List.of(array[17], array[18]);
         return new Client(
                 Type.NORMAL,
-                array[0].replace(";", ""),
-                name,
-                location,
-                array[12],
-                Timestamp.valueOf(array[13].replace("T", " ").replace("Z", "")),
-                Timestamp.valueOf(array[15].replace("T", " ").replace("Z", "")),
-                telephones,
-                picture,
+                buildGender(array),
+                buildName(array),
+                buildLocation(array),
+                buildEmail(array),
+                buildBirthdate(array),
+                buildRegisteredDate(array),
+                buildTelephones(array),
+                buildPicture(array),
                 "BR"
         );
+    }
+
+    private static String buildGender(String[] array){
+        if (array[0].equals(";male")){
+            return "m";
+        } else {
+            return "f";
+        }
+    }
+
+    private static String buildEmail(String[] array){
+        return array[12];
+    }
+
+    private static Timestamp buildBirthdate(String[] array){
+        return Timestamp.valueOf(array[13].replace("T", " ").replace("Z", ""));
+    }
+
+    private static Timestamp buildRegisteredDate(String[] array){
+        return Timestamp.valueOf(array[15].replace("T", " ").replace("Z", ""));
     }
 
     private static Name buildName(String[] array){
@@ -37,6 +53,22 @@ public class CsvClientBuilder {
 
     private static Timezone buildTimezone(String[] array){
         return new Timezone(array[10], array[11]);
+    }
+
+    private static Picture buildPicture(String[] array){
+        return new Picture(array[19], array[20], array[21]);
+    }
+
+    private static List<String> buildTelephones(String[] array){
+        return List.of(convertTelephone(array[17]), convertTelephone(array[18]));
+    }
+
+    private static String convertTelephone(String number){
+        return "+55" + number
+                .replace("(","")
+                .replace(")", "")
+                .replace("-", "")
+                .replace(" ", "");
     }
 
     private static Location buildLocation(String[] array){

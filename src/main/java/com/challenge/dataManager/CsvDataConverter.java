@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public class CsvDataConverter {
 
-    public static HashMap<UUID, Client> getClientsFromCsv(String filePath) throws IOException {
+    public static HashMap<UUID, Client> toHashMap(String filePath) throws IOException {
         File file = new File(filePath);
         HashMap<UUID, Client> clients = new HashMap<>();
 

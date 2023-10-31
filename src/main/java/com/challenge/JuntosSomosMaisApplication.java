@@ -27,9 +27,9 @@ public class JuntosSomosMaisApplication {
 			e.printStackTrace();
 		}
 
-		clients = CsvDataConverter.getClientsFromCsv(outputFileName);
+		clients = CsvDataConverter.toHashMap(outputFileName);
 		for (Client client: clients.values()) {
-			System.out.println(client.getLocation().getRegion());
+			System.out.println(client.getTelephoneNumbers());
 		}
 
 	}
