@@ -1,7 +1,6 @@
 package com.challenge.dataManager;
 
-import com.challenge.models.Client;
-import com.challenge.models.Name;
+import com.challenge.models.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,23 +11,32 @@ import java.util.UUID;
 
 public class CsvDataConverter {
 
-    public static void readAndPrintFileLines(String filePath) throws IOException {
+    public static HashMap<UUID, Client> getClientsFromCsv(String filePath) throws IOException {
         File file = new File(filePath);
-        HashMap<UUID, Client> clients;
+        HashMap<UUID, Client> clients = new HashMap<>();
 
         if (!file.exists()) {
             System.out.println("O arquivo não existe.");
-            return;
+            return null;
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] array = (line.replace('"', ';')).split(";,;");
-                Name name = new Name(array[1], array[2], array[3]);
-
-                System.out.println(name.getTitle() + " " + name.getFirst() + " " + name.getLast());
+                if (isNotTheFirstLine(line)){
+                    String[] array = slices(line);
+                    clients.put(UUID.randomUUID(), CsvClientBuilder.build(array));
+                }
             }
         }
+        return clients;
+    }
+
+    private static Boolean isNotTheFirstLine(String line){
+        return !line.contains("gender");
+    }
+
+    private static String[] slices(String line){
+        return (line.replace('"', ';')).split(";,;");
     }
 }
