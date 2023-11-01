@@ -2,6 +2,7 @@ package com.challenge;
 
 import com.challenge.dataManager.CsvDataCatcher;
 import com.challenge.dataManager.CsvDataConverter;
+import com.challenge.dataManager.JsonDataConverter;
 import com.challenge.models.Client;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,24 +14,22 @@ import java.util.UUID;
 @SpringBootApplication
 public class JuntosSomosMaisApplication {
 
+
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(JuntosSomosMaisApplication.class, args);
-		HashMap<UUID, Client> clients;
 
-		String url = "https://storage.googleapis.com/juntossomosmais-code-challenge/input-backend.csv";
-		String outputFileName = "dados.csv";
+		String csvUrl = "https://storage.googleapis.com/juntossomosmais-code-challenge/input-backend.csv";
+		String jsonUrl = "https://storage.googleapis.com/juntossomosmais-code-challenge/input-backend.json";
+		String outputCsvFileName = "dados.csv";
 
-		try {
-			CsvDataCatcher.downloadCSV(url, outputFileName);
-			System.out.println("CSV baixado com sucesso.");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		convert data to a hashmap in memory
+		HashMap<UUID, Client> clientsFromCsv = CsvDataConverter.toHashMap(csvUrl, outputCsvFileName);
+		HashMap<UUID, Client> clientsFromJson = JsonDataConverter.toHashMap(jsonUrl);
 
-		clients = CsvDataConverter.toHashMap(outputFileName);
-		for (Client client: clients.values()) {
-			System.out.println(client.getTelephoneNumbers());
-		}
+//		make a single hashmap of clients with all clients data
+		clientsFromJson.putAll(clientsFromCsv);
+		Repository.clients = clientsFromJson;
+
 
 	}
 

@@ -11,7 +11,14 @@ import java.util.UUID;
 
 public class CsvDataConverter {
 
-    public static HashMap<UUID, Client> toHashMap(String filePath) throws IOException {
+    public static HashMap<UUID, Client> toHashMap(String url, String filePath) throws IOException {
+        try {
+            CsvDataCatcher.downloadCSV(url, filePath);
+            System.out.println("CSV baixado com sucesso.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         File file = new File(filePath);
         HashMap<UUID, Client> clients = new HashMap<>();
 

@@ -63,7 +63,7 @@ public class CsvClientBuilder {
         return List.of(convertTelephone(array[17]), convertTelephone(array[18]));
     }
 
-    private static String convertTelephone(String number){
+    public static String convertTelephone(String number){
         return "+55" + number
                 .replace("(","")
                 .replace(")", "")
