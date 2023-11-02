@@ -19,8 +19,8 @@ import java.util.UUID;
 public class ClientController {
 
     @GetMapping()
-    public ResponseEntity<HashMap<UUID, Client>> getAllClients() {
-        HashMap<UUID, Client> clientHashMap = Repository.clients;
+    public ResponseEntity<HashMap<Integer, Client>> getAllClients() {
+        HashMap<Integer, Client> clientHashMap = Repository.clients;
         return ResponseEntity.ok(clientHashMap);
     };
 }

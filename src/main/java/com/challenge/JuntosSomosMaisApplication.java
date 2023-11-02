@@ -23,8 +23,8 @@ public class JuntosSomosMaisApplication {
 		String outputCsvFileName = "dados.csv";
 
 //		convert data to a hashmap in memory
-		HashMap<UUID, Client> clientsFromCsv = CsvDataConverter.toHashMap(csvUrl, outputCsvFileName);
-		HashMap<UUID, Client> clientsFromJson = JsonDataConverter.toHashMap(jsonUrl);
+		HashMap<Integer, Client> clientsFromCsv = CsvDataConverter.toHashMap(csvUrl, outputCsvFileName);
+		HashMap<Integer, Client> clientsFromJson = JsonDataConverter.toHashMap(jsonUrl);
 
 //		make a single hashmap of clients with all clients data
 		clientsFromJson.putAll(clientsFromCsv);

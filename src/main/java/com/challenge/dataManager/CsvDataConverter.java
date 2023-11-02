@@ -1,5 +1,6 @@
 package com.challenge.dataManager;
 
+import com.challenge.Repository;
 import com.challenge.models.*;
 
 import java.io.BufferedReader;
@@ -7,11 +8,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.UUID;
+
 
 public class CsvDataConverter {
 
-    public static HashMap<UUID, Client> toHashMap(String url, String filePath) throws IOException {
+    public static HashMap<Integer, Client> toHashMap(String url, String filePath) throws IOException {
         try {
             CsvDataCatcher.downloadCSV(url, filePath);
             System.out.println("CSV baixado com sucesso.");
@@ -20,7 +21,7 @@ public class CsvDataConverter {
         }
 
         File file = new File(filePath);
-        HashMap<UUID, Client> clients = new HashMap<>();
+        HashMap<Integer, Client> clients = new HashMap<>();
 
         if (!file.exists()) {
             System.out.println("O arquivo não existe.");
@@ -32,7 +33,7 @@ public class CsvDataConverter {
             while ((line = reader.readLine()) != null) {
                 if (isNotTheFirstLine(line)){
                     String[] array = slices(line);
-                    clients.put(UUID.randomUUID(), CsvClientBuilder.build(array));
+                    clients.put(Repository.getIndex(), CsvClientBuilder.build(array));
                 }
             }
         }
