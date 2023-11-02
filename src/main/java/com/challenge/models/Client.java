@@ -8,10 +8,12 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Client {
+    private UUID id;
     private Type type;
     private String gender;
     private Name name;

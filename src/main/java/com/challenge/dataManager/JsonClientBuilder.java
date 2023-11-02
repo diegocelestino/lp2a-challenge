@@ -6,13 +6,14 @@ import com.challenge.models.json.JsonClient;
 
 import java.sql.Timestamp;
 import java.util.List;
-
+import java.util.UUID;
 
 
 public class JsonClientBuilder {
 
     public static Client build(JsonClient jsonClient){
         return new Client(
+                UUID.randomUUID(),
                 Type.NORMAL,
                 buildGender(jsonClient),
                 jsonClient.getName(),

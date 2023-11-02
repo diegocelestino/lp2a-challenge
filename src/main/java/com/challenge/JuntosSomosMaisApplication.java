@@ -30,6 +30,8 @@ public class JuntosSomosMaisApplication {
 		clientsFromJson.putAll(clientsFromCsv);
 		Repository.clients = clientsFromJson;
 
+		Repository.clients.forEach((key, value) -> System.out.println(key + " " + value));
+
 
 	}
 

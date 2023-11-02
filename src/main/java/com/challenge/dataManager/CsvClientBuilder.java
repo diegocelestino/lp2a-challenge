@@ -5,11 +5,13 @@ import com.challenge.models.*;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.UUID;
 
 public class CsvClientBuilder {
 
     public static Client build(String[] array){
         return new Client(
+                UUID.randomUUID(),
                 Type.NORMAL,
                 buildGender(array),
                 buildName(array),
