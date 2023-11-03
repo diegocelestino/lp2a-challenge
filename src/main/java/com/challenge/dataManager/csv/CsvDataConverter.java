@@ -1,4 +1,4 @@
-package com.challenge.dataManager;
+package com.challenge.dataManager.csv;
 
 import com.challenge.Repository;
 import com.challenge.models.*;

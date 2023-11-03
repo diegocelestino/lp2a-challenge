@@ -1,4 +1,4 @@
-package com.challenge.dataManager;
+package com.challenge.dataManager.csv;
 
 import java.io.BufferedReader;
 import java.io.IOException;

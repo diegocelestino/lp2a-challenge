@@ -1,4 +1,4 @@
-package com.challenge.dataManager;
+package com.challenge.dataManager.json;
 
 import com.challenge.Repository;
 import com.challenge.models.Client;
@@ -6,7 +6,6 @@ import com.challenge.models.json.JsonClient;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 public class JsonDataConverter {
 

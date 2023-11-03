@@ -1,6 +1,7 @@
-package com.challenge.dataManager;
+package com.challenge.dataManager.json;
 
-import com.challenge.dataManager.regionChain.DispenseChain;
+import com.challenge.dataManager.csv.CsvClientBuilder;
+import com.challenge.dataManager.regionChain.DispenseRegionChain;
 import com.challenge.models.*;
 import com.challenge.models.json.JsonClient;
 
@@ -40,9 +41,9 @@ public class JsonClientBuilder {
     }
 
     private static Location buildLocation(JsonClient jsonClient){
-        DispenseChain dispenseChain = new DispenseChain();
+        DispenseRegionChain dispenseRegionChain = new DispenseRegionChain();
         return new Location(
-                dispenseChain.first.dispense(jsonClient.getLocation().getState()),
+                dispenseRegionChain.first.dispense(jsonClient.getLocation().getState()),
                 jsonClient.getLocation().getStreet(),
                 jsonClient.getLocation().getCity(),
                 jsonClient.getLocation().getState(),

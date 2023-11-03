@@ -1,15 +1,13 @@
 package com.challenge;
 
-import com.challenge.dataManager.CsvDataCatcher;
-import com.challenge.dataManager.CsvDataConverter;
-import com.challenge.dataManager.JsonDataConverter;
+import com.challenge.dataManager.csv.CsvDataConverter;
+import com.challenge.dataManager.json.JsonDataConverter;
 import com.challenge.models.Client;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.UUID;
 
 @SpringBootApplication
 public class JuntosSomosMaisApplication {

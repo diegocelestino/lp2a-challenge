@@ -1,4 +1,4 @@
-package com.challenge.dataManager;
+package com.challenge.dataManager.json;
 
 import com.challenge.models.json.JsonClient;
 import com.challenge.models.json.Results;

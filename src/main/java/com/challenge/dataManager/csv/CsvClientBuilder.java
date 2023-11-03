@@ -1,6 +1,6 @@
-package com.challenge.dataManager;
+package com.challenge.dataManager.csv;
 
-import com.challenge.dataManager.regionChain.DispenseChain;
+import com.challenge.dataManager.regionChain.DispenseRegionChain;
 import com.challenge.models.*;
 
 import java.sql.Timestamp;
@@ -74,9 +74,9 @@ public class CsvClientBuilder {
     }
 
     private static Location buildLocation(String[] array){
-        DispenseChain dispenseChain = new DispenseChain();
+        DispenseRegionChain dispenseRegionChain = new DispenseRegionChain();
         return new Location(
-                dispenseChain.first.dispense(array[6]),
+                dispenseRegionChain.first.dispense(array[6]),
                 array[4],
                 array[5],
                 array[6],

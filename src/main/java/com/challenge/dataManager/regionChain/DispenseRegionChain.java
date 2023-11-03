@@ -1,9 +1,9 @@
 package com.challenge.dataManager.regionChain;
 
-public class DispenseChain {
+public class DispenseRegionChain {
     public RegionChain first;
 
-    public DispenseChain(){
+    public DispenseRegionChain(){
         this.first = new SouthDispenser();
         RegionChain second = new SoutheastDispenser();
         RegionChain third = new WestCenterDispenser();
@@ -14,6 +14,5 @@ public class DispenseChain {
         second.setNextChain(third);
         third.setNextChain(fourth);
         fourth.setNextChain(fifth);
-
     }
 }
