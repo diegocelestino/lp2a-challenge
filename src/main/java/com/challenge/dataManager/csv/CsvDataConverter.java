@@ -1,21 +1,20 @@
 package com.challenge.dataManager.csv;
 
 import com.challenge.Repository;
-import com.challenge.models.*;
+import com.challenge.models.Client;
 
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 
 
 public class CsvDataConverter {
 
-    public static HashMap<Integer, Client> toHashMap(String url, String filePath) {
-
-        tryDownload(url, filePath);
-
-        File file = new File(filePath);
-
-        return readFileAndWriteClientsToRepository(file);
+    public static HashMap<Integer, Client> toHashMap(String url) throws IOException {
+        URL csvUrl = new URL(url);
+        HttpURLConnection connection = (HttpURLConnection) csvUrl.openConnection();
+        return saveClientsToRepository(connection);
     }
 
     private static Boolean isNotTheFirstLine(String line){
@@ -26,9 +25,9 @@ public class CsvDataConverter {
         return (line.replace('"', ';')).split(";,;");
     }
 
-    private static HashMap<Integer, Client> readFileAndWriteClientsToRepository(File file){
+    private static HashMap<Integer, Client> saveClientsToRepository(HttpURLConnection connection){
         HashMap<Integer, Client> clients = new HashMap<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (isNotTheFirstLine(line)){
@@ -40,13 +39,5 @@ public class CsvDataConverter {
             throw new RuntimeException(e);
         }
         return clients;
-    }
-
-    private static void tryDownload(String url, String filePath){
-        try {
-            CsvDataCatcher.downloadCSV(url, filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

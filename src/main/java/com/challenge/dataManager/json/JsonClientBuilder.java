@@ -2,6 +2,7 @@ package com.challenge.dataManager.json;
 
 import com.challenge.dataManager.csv.CsvClientBuilder;
 import com.challenge.dataManager.regionChain.DispenseRegionChain;
+import com.challenge.dataManager.typeChain.DispenseTypeChain;
 import com.challenge.models.*;
 import com.challenge.models.json.JsonClient;
 
@@ -15,7 +16,7 @@ public class JsonClientBuilder {
     public static Client build(JsonClient jsonClient){
         return new Client(
                 UUID.randomUUID(),
-                Type.NORMAL,
+                buildType(jsonClient),
                 buildGender(jsonClient),
                 jsonClient.getName(),
                 buildLocation(jsonClient),
@@ -34,6 +35,11 @@ public class JsonClientBuilder {
         }else {
             return "f";
         }
+    }
+
+    private static Type buildType(JsonClient jsonClient){
+        DispenseTypeChain dispenseTypeChain = new DispenseTypeChain();
+        return dispenseTypeChain.first.dispense(jsonClient.getLocation().getCoordinates());
     }
 
     private static Timestamp buildBirthdate(JsonClient jsonClient){

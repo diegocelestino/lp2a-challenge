@@ -1,6 +1,7 @@
 package com.challenge.dataManager.csv;
 
 import com.challenge.dataManager.regionChain.DispenseRegionChain;
+import com.challenge.dataManager.typeChain.DispenseTypeChain;
 import com.challenge.models.*;
 
 import java.sql.Timestamp;
@@ -12,7 +13,7 @@ public class CsvClientBuilder {
     public static Client build(String[] array){
         return new Client(
                 UUID.randomUUID(),
-                Type.NORMAL,
+                buildType(array),
                 buildGender(array),
                 buildName(array),
                 buildLocation(array),
@@ -31,6 +32,11 @@ public class CsvClientBuilder {
         } else {
             return "f";
         }
+    }
+
+    private static Type buildType(String[] array){
+        DispenseTypeChain dispenseTypeChain = new DispenseTypeChain();
+        return dispenseTypeChain.first.dispense(buildCoordinate(array));
     }
 
     private static String buildEmail(String[] array){

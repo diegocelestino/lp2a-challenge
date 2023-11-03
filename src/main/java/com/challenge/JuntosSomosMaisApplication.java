@@ -18,18 +18,14 @@ public class JuntosSomosMaisApplication {
 
 		String csvUrl = "https://storage.googleapis.com/juntossomosmais-code-challenge/input-backend.csv";
 		String jsonUrl = "https://storage.googleapis.com/juntossomosmais-code-challenge/input-backend.json";
-		String outputCsvFileName = "dados.csv";
 
 //		convert data to a hashmap in memory
-		HashMap<Integer, Client> clientsFromCsv = CsvDataConverter.toHashMap(csvUrl, outputCsvFileName);
+		HashMap<Integer, Client> clientsFromCsv = CsvDataConverter.toHashMap(csvUrl);
 		HashMap<Integer, Client> clientsFromJson = JsonDataConverter.toHashMap(jsonUrl);
 
 //		make a single hashmap of clients with all clients data
 		clientsFromJson.putAll(clientsFromCsv);
 		Repository.clients = clientsFromJson;
-
-		Repository.clients.forEach((key, value) -> System.out.println(key + " " + value));
-
 
 	}
 
