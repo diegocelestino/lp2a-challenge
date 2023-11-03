@@ -1,6 +1,7 @@
 package com.challenge.controllers;
 
 import com.challenge.Repository;
+import com.challenge.dtos.ClientDto;
 import com.challenge.models.Client;
 import com.challenge.services.ClientService;
 import lombok.AllArgsConstructor;
@@ -22,8 +23,8 @@ public class ClientController {
     private final ClientService clientService;
 
     @GetMapping()
-    public ResponseEntity<List<Client>>getAllClients() {
-        List<Client> clients = clientService.getAllClients();
+    public ResponseEntity<List<ClientDto>>getAllClients() {
+        List<ClientDto> clients = clientService.getAllClients();
         return ResponseEntity.ok(clients);
     }
 
