@@ -27,6 +27,15 @@ public class Page {
     private List<ClientDto> getClientsDto(List<ClientDto> clients){
         int initIndex = this.actualPage * this.size;
         int finalIndex = initIndex + this.size;
+
         return clients.subList(initIndex, finalIndex);
+    }
+
+    private int getTotalPages(Pageable pageable, List<ClientDto> clients){
+        int totalPages = clients.size() / pageable.size;
+        if (clients.size() % pageable.size != 0){
+            System.out.println("diferente de zero");
+        }
+        return totalPages;
     }
 }

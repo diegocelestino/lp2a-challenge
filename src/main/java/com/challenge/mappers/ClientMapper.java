@@ -1,4 +1,4 @@
-package com.challenge;
+package com.challenge.mappers;
 
 import com.challenge.dtos.ClientDto;
 import com.challenge.models.Address;

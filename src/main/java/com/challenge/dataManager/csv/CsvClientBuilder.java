@@ -64,7 +64,7 @@ public class CsvClientBuilder {
     }
 
     private static Picture buildPicture(String[] array){
-        return new Picture(array[19], array[20], array[21]);
+        return new Picture(array[19], array[20], array[21].replace(";", ""));
     }
 
     private static List<String> buildTelephones(String[] array){

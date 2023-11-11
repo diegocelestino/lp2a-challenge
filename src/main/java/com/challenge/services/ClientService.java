@@ -1,15 +1,18 @@
 package com.challenge.services;
 
-import com.challenge.ClientMapper;
+import com.challenge.mappers.ClientMapper;
 import com.challenge.Repository;
 import com.challenge.dtos.ClientDto;
 import com.challenge.dtos.Page;
 import com.challenge.dtos.Pageable;
+import com.challenge.models.Client;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @AllArgsConstructor
@@ -26,5 +29,15 @@ public class ClientService {
         List<ClientDto> clients = new ArrayList<>();
         Repository.clients.forEach((key, value) -> clients.add(clientMapper.to(value)));
         return new Page(pageable, clients);
+    }
+
+    public ClientDto getClient(UUID id) {
+        AtomicReference<Client> client = new AtomicReference<>();
+        Repository.clients.forEach((key, value) -> {
+            if (value.getId().equals(id)){
+                client.set(value);
+            }
+        });
+        return clientMapper.to(client.get());
     }
 }
