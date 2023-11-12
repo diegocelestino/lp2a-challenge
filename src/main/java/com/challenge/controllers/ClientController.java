@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -17,11 +18,20 @@ import java.util.UUID;
 public class ClientController {
     private final ClientService clientService;
 
+
+    @GetMapping("/all")
+    public ResponseEntity<List<ClientDto>> getAllClients(){
+        List<ClientDto> clients = clientService.getAllClients();
+        return ResponseEntity.ok(clients);
+    }
+
     @GetMapping()
     public ResponseEntity<Page>getClientPage(
             @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "20") Integer size) {
-        Page clientPage = clientService.getPage(new Pageable(page, size));
+            @RequestParam(defaultValue = "20") Integer size,
+            @RequestParam(defaultValue = "ALL") String type,
+            @RequestParam(defaultValue = "ALL") String region) {
+        Page clientPage = clientService.getPage(new Pageable(page, size), type, region);
         return ResponseEntity.ok(clientPage);
     }
 
@@ -31,5 +41,11 @@ public class ClientController {
         return ResponseEntity.ok(clientDto);
     }
 
+    @GetMapping("/byName/{name}")
+    public ResponseEntity<List<ClientDto>>getClientsByName(@PathVariable String name) {
+        System.out.println(name);
+        List<ClientDto> clientsDto = clientService.getClientsByName(name);
+        return ResponseEntity.ok(clientsDto);
+    }
 
 }

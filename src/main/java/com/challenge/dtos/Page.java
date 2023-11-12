@@ -27,7 +27,9 @@ public class Page {
     private List<ClientDto> getClientsDto(List<ClientDto> clients){
         int initIndex = this.actualPage * this.size;
         int finalIndex = initIndex + this.size;
-
+        if(finalIndex > clients.size()){
+            finalIndex = clients.size();
+        }
         return clients.subList(initIndex, finalIndex);
     }
 

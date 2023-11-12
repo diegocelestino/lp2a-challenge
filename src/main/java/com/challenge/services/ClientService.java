@@ -25,9 +25,31 @@ public class ClientService {
         return clients;
     }
 
-    public Page getPage(Pageable pageable){
+    public Page getPage(Pageable pageable, String type, String region){
         List<ClientDto> clients = new ArrayList<>();
-        Repository.clients.forEach((key, value) -> clients.add(clientMapper.to(value)));
+        if(type.equals("ALL") & region.equals("ALL")){
+            Repository.clients.forEach((key, value) -> clients.add(clientMapper.to(value)));
+        }
+        else if (!type.equals("ALL") & region.equals("ALL")) {
+            Repository.clients.forEach((key, value) -> {
+                if (value.getType().toString().equals(type)){
+                    clients.add(clientMapper.to(value));
+                }
+            });
+        }
+        else if (type.equals("ALL")) {
+            Repository.clients.forEach((key, value) -> {
+                if (value.getLocation().getRegion().equals(region)){
+                    clients.add(clientMapper.to(value));
+                }
+            });
+        } else {
+            Repository.clients.forEach((key, value) -> {
+                if (value.getType().toString().equals(type) & value.getLocation().getRegion().equals(region)){
+                    clients.add(clientMapper.to(value));
+                }
+            });
+        }
         return new Page(pageable, clients);
     }
 
@@ -39,5 +61,15 @@ public class ClientService {
             }
         });
         return clientMapper.to(client.get());
+    }
+
+    public List<ClientDto> getClientsByName(String name) {
+        List<ClientDto> clients = new ArrayList<>();
+        Repository.clients.forEach((key, value) -> {
+            if (value.getName().getFirst().equals(name)){
+                clients.add(clientMapper.to(value));
+            }
+        });
+        return clients;
     }
 }
