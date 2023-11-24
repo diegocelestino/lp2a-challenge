@@ -27,6 +27,10 @@ public class JuntosSomosMaisApplication {
 		clientsFromJson.putAll(clientsFromCsv);
 		Repository.clients = clientsFromJson;
 
+		Repository.dropDuplicates();
+
+
+
 	}
 
 }
